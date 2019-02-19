@@ -31,6 +31,7 @@ export class QuestionPage extends Component {
     questionId: 0,
     totalCorrectAnswer: 0,
     isAnswerCorrect: false,
+    isStarted: false,
     isCompleted: false,
     tick: 0,
   }
@@ -105,13 +106,17 @@ export class QuestionPage extends Component {
     clock = setInterval(this.timer, 1000);
   }
 
+  onStartPress = () => {
+    this.setState({ isStarted: true });
+  }
+
   render() {
-    console.log('questions', this.props.questions);
     return (
       <View style={{ flex: 1 }}>
-        <Header title="Quiz App" /> 
-        {this.props.isLoaded && !this.state.isCompleted && this.renderQuestion()}
-        {this.props.isLoaded && !this.state.isCompleted && <Button title="Next" buttonStyle={{ backgroundColor: colors.success }} onButtonPress={this.onNextPress} />}
+        <Header title="Quiz App" />
+        {this.props.isLoaded && !this.state.isStarted && <Button title="Start Quiz" buttonStyle={{ backgroundColor: colors.success }} onButtonPress={this.onStartPress} />}
+        {this.state.isStarted && !this.state.isCompleted && this.renderQuestion()}
+        {this.state.isStarted && !this.state.isCompleted && <Button title="Next" buttonStyle={{ backgroundColor: colors.success }} onButtonPress={this.onNextPress} />}
         {this.state.isCompleted && this.renderScore()}
         {this.state.isCompleted && <Button title="Play Again" buttonStyle={{ backgroundColor: colors.success }} onButtonPress={this.onPlayAgainPress} />}
       </View>
