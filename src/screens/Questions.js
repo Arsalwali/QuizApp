@@ -38,7 +38,6 @@ export class QuestionPage extends Component {
 
   componentDidMount() {
     this.props.getQuestion();
-    clock = setInterval(this.timer, 1000);
   }
 
   timer = () => {
@@ -100,6 +99,7 @@ export class QuestionPage extends Component {
     this.setState({
       questionId: 0,
       isAnswerCorrect: false,
+      totalCorrectAnswer: 0,
       isCompleted: false,
       tick: 0,
     });
@@ -108,6 +108,7 @@ export class QuestionPage extends Component {
 
   onStartPress = () => {
     this.setState({ isStarted: true });
+    clock = setInterval(this.timer, 1000);
   }
 
   render() {
